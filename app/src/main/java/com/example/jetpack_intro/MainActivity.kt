@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
@@ -21,18 +22,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MessageCard(Message("Android","Jetpack Compose"))
 
-            /*JetPack_introTheme {
+            JetPack_introTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+                    MessageCard(Message("Android", "Jetpack Compose"))
                     // Greeting("Android")
-                    MessageCard(name = "Kotlin")
+                    // MessageCard(name = "Kotlin")
                 }
-            }*/
+            }
 
         }
     }
@@ -46,27 +47,32 @@ fun Greeting(name: String) {
 }
 
 @Composable
-fun MessageCard(msg: Message){
+fun MessageCard(msg: Message) {
     // Add padding
-    Row(modifier = Modifier.padding(all = 8.dp)){
-        Image(painter = painterResource(R.drawable.profile_picture),
+    Row(modifier = Modifier.padding(all = 8.dp)) {
+        Image(
+            painter = painterResource(R.drawable.profile_picture),
             contentDescription = "Contact profile picture",
             modifier = Modifier
                 //Set image size
                 .size(40.dp)
                 // Clip image to be shaped as a circle
                 .clip(CircleShape)
+                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
         )
         // Add a horizontal space btw the image and the column
         Spacer(modifier = Modifier.width(9.dp))
         Column {
-            Text(text = msg.author)
+            Text(
+                text = msg.author,
+                color = MaterialTheme.colors.secondaryVariant
+            )
             // Add a vertical space btw the author and msg texts
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = msg.body)
         }
     }
-    
+
 }
 
 @Preview(showBackground = true)
